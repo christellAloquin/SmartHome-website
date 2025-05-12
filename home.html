@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ESP8266 Smart Lighting</title>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background-color: #222;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+    }
+    .hero {
+      background: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+    }
+    .hero h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    .hero button {
+      background-color: #00aaff;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .features {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    .feature {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2>ESP8266 Smart Lighting</h2>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Features</a>
+      <a href="#">How It Works</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>ESP8266-Based Wireless Lighting Control</h1>
+    <p>Control your home lighting from anywhere using Wi-Fi</p>
+    <button id="toggleButton">Loading...</button>
+  </section>
+
+  <section class="section">
+    <h2>Key Features</h2>
+    <div class="features">
+      <div class="feature">
+        <h3>🔌 Easy Integration</h3>
+        <p>Works with your existing light switches and wiring setup.</p>
+      </div>
+      <div class="feature">
+        <h3>📶 Wi-Fi Controlled</h3>
+        <p>ESP8266 enables wireless switching via your home network.</p>
+      </div>
+      <div class="feature">
+        <h3>🕹️ Remote Access</h3>
+        <p>Turn lights on or off remotely using a web or mobile app.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>How It Works</h2>
+    <p>1️⃣ Connect ESP8266 → 2️⃣ Configure via App → 3️⃣ Control via Wi-Fi</p>
+  </section>
+
+  <footer>
+    <p>© 2025 ESP8266 Smart Lighting | All Rights Reserved</p>
+  </footer>
+
+  <!-- Firebase Integration Script -->
+  <script>
+    // Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyCc0mDOMrUgh77HMvV8YCDd39hutywEPxI",
+      authDomain: "gerald-bulb.firebaseapp.com",
+      databaseURL: "https://gerald-bulb-default-rtdb.firebaseio.com",
+      projectId: "gerald-bulb",
+      storageBucket: "gerald-bulb.appspot.com",
+      messagingSenderId: "1040165190171",
+      appId: "1:1040165190171:web:7eb0559396add5450416be"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var dbRef = firebase.database().ref('/lightStatus');
+    var currentStatus = false;
+
+    // Sync button text with Firebase value
+    dbRef.on('value', function(snapshot) {
+      var lightStatus = snapshot.val();
+      if (lightStatus === null) {
+        lightStatus = false;
+        dbRef.set(false);
+      }
+      currentStatus = lightStatus;
+      document.getElementById('toggleButton').innerText = lightStatus ? "Turn OFF" : "Turn ON";
+    });
+
+    // Button click to toggle light
+    document.getElementById('toggleButton').addEventListener('click', function() {
+      currentStatus = !currentStatus;
+      dbRef.set(currentStatus);
+    });
+  </script>
+
+</body>
+</html>
