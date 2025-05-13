@@ -76,7 +76,7 @@
 
   <div class="container">
     <div class="panel">
-      <h2>Control Kitchen Light</h2>
+      <h2>Control Kitchen light</h2>
       <div class="controls">
         <button id="relay3Button">Loading...</button>
       </div>
@@ -87,10 +87,8 @@
     <p>© 2025 Smart Home System | Powered by ESP32 & Firebase</p>
   </footer>
 
-  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyCc0mDOMrUgh77HMvV8YCDd39hutywEPxI",
@@ -103,26 +101,32 @@
     };
 
     firebase.initializeApp(firebaseConfig);
+    const dbRef = firebase.database().ref('/');
 
-    const relay3Ref = firebase.database().ref('/relay3Status');
-    const relay3Button = document.getElementById('relay3Button');
-
-    // Realtime listener for kitchen light
-    relay3Ref.on('value', snapshot => {
-      const isOn = snapshot.val();
-      relay3Button.innerText = isOn ? 'Turn Light OFF' : 'Turn Light ON';
+    dbRef.on('value', (snapshot) => {
+      const data = snapshot.val() || {};
+      const relay3Status = data.relay3Status || false;
+      const relay3Button = document.getElementById('relay3Button');
+      if (relay3Button) {
+        relay3Button.innerText = relay3Status ? 'Turn Light ON' : 'Turn Light OFF';
+      }
     });
 
-    // Toggle logic
-    relay3Button.addEventListener('click', () => {
-      relay3Ref.once('value').then(snapshot => {
-        const current = snapshot.val();
-        relay3Ref.set(!current);
+    function toggleRelay3() {
+      const ref = firebase.database().ref('/relay3Status');
+      ref.once('value').then(snapshot => {
+        const current = snapshot.val() || false;
+        ref.set(!current);
       });
-    });
+    }
+
+    const relay3Button = document.getElementById('relay3Button');
+    if (relay3Button) {
+      relay3Button.addEventListener('click', toggleRelay3);
+    }
   </script>
 
-  <!-- Optional Bootstrap Bundle -->
+  <!-- Bootstrap Bundle JS (includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
