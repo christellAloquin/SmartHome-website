@@ -76,7 +76,7 @@
 
   <div class="container">
     <div class="panel">
-      <h2>Control Living Room light</h2>
+      <h2>Control Living Room Light</h2>
       <div class="controls">
         <button id="relay4Button">Loading...</button>
       </div>
@@ -101,29 +101,20 @@
     };
 
     firebase.initializeApp(firebaseConfig);
-    const dbRef = firebase.database().ref('/');
+    const relay4Ref = firebase.database().ref('/relay4Status');
+    const relay4Button = document.getElementById('relay4Button');
 
-    dbRef.on('value', (snapshot) => {
-      const data = snapshot.val() || {};
-      const relay4Status = data.relay4Status || false;
-      const relay4Button = document.getElementById('relay4Button');
-      if (relay4Button) {
-        relay4Button.innerText = relay4Status ? 'Turn Light ON' : 'Turn Light OFF';
-      }
+    relay4Ref.on('value', (snapshot) => {
+      const isOn = snapshot.val();
+      relay4Button.innerText = isOn ? 'Turn Light OFF' : 'Turn Light ON';
     });
 
-    function toggleRelay4() {
-      const ref = firebase.database().ref('/relay4Status');
-      ref.once('value').then(snapshot => {
-        const current = snapshot.val() || false;
-        ref.set(!current);
+    relay4Button.addEventListener('click', () => {
+      relay4Ref.once('value').then(snapshot => {
+        const current = snapshot.val();
+        relay4Ref.set(!current);
       });
-    }
-
-    const relay4Button = document.getElementById('relay4Button');
-    if (relay4Button) {
-      relay4Button.addEventListener('click', toggleRelay4);
-    }
+    });
   </script>
 
   <!-- Bootstrap Bundle JS (includes Popper) -->
