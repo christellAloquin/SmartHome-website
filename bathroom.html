@@ -16,7 +16,7 @@
       min-height: 100vh;
     }
     header {
-      background-color: rgba(44, 62, 80, 0.8); /* Semi-transparent background */
+      background-color: rgba(44, 62, 80, 0.8);
       color: white;
       padding: 20px;
       text-align: center;
@@ -29,15 +29,32 @@
       align-items: center;
       padding: 40px;
     }
+
+    /* Animation */
+    @keyframes fadeInZoom {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
     .panel {
-      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent panel background */
+      background-color: rgba(255, 255, 255, 0.8);
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       max-width: 500px;
       width: 100%;
       text-align: center;
+
+      /* Apply animation */
+      animation: fadeInZoom 0.6s ease-out;
     }
+
     h2 {
       margin-bottom: 30px;
       color: #2c3e50;
@@ -55,13 +72,15 @@
       font-size: 1em;
       cursor: pointer;
       border-radius: 10px;
+
+      /* Apply transition */
       transition: background-color 0.3s ease;
     }
     .controls button:hover {
       background-color: #0077cc;
     }
     footer {
-      background-color: rgba(44, 62, 80, 0.8); /* Semi-transparent footer */
+      background-color: rgba(44, 62, 80, 0.8);
       color: white;
       text-align: center;
       padding: 15px;
@@ -76,7 +95,7 @@
 
   <div class="container">
     <div class="panel">
-      <h2>Control Bathroom light</h2>
+      <h2>Control Bathroom Light</h2>
       <div class="controls">
         <button id="relay1Button">Loading...</button>
       </div>
@@ -92,41 +111,4 @@
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyCc0mDOMrUgh77HMvV8YCDd39hutywEPxI",
-      authDomain: "gerald-bulb.firebaseapp.com",
-      databaseURL: "https://gerald-bulb-default-rtdb.firebaseio.com",
-      projectId: "gerald-bulb",
-      storageBucket: "gerald-bulb.appspot.com",
-      messagingSenderId: "1040165190171",
-      appId: "1:1040165190171:web:7eb0559396add5450416be"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const dbRef = firebase.database().ref('/');
-
-    dbRef.on('value', (snapshot) => {
-      const data = snapshot.val() || {};
-      const relay1Status = data.relay1Status || false;
-      const relay1Button = document.getElementById('relay1Button');
-      if (relay1Button) {
-        relay1Button.innerText = relay1Status ? 'Turn Light ON' : 'Turn Light OFF';
-      }
-    });
-
-    function toggleRelay1() {
-      const ref = firebase.database().ref('/relay1Status');
-      ref.once('value').then(snapshot => {
-        const current = snapshot.val() || false;
-        ref.set(!current);
-      });
-    }
-
-    const relay1Button = document.getElementById('relay1Button');
-    if (relay1Button) {
-      relay1Button.addEventListener('click', toggleRelay1);
-    }
-  </script>
-  
-  <!-- Bootstrap Bundle JS (includes Popper) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+      authDomain: "
