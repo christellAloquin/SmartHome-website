@@ -76,7 +76,7 @@
 
   <div class="container">
     <div class="panel">
-      <h2>Control Bedroom Light</h2>
+      <h2>Control Bedroom light</h2>
       <div class="controls">
         <button id="relay2Button">Loading...</button>
       </div>
@@ -87,10 +87,8 @@
     <p>© 2025 Smart Home System | Powered by ESP32 & Firebase</p>
   </footer>
 
-  <!-- Firebase JS SDK -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyCc0mDOMrUgh77HMvV8YCDd39hutywEPxI",
@@ -103,27 +101,32 @@
     };
 
     firebase.initializeApp(firebaseConfig);
+    const dbRef = firebase.database().ref('/');
 
-    const relay2Ref = firebase.database().ref('/relay2Status');
-    const relay2Button = document.getElementById('relay2Button');
-
-    // Update button based on real-time status
-    relay2Ref.on('value', (snapshot) => {
-      const status = snapshot.val();
-      relay2Button.innerText = status ? 'Turn Light OFF' : 'Turn Light ON';
+    dbRef.on('value', (snapshot) => {
+      const data = snapshot.val() || {};
+      const relay2Status = data.relay2Status || false;
+      const relay2Button = document.getElementById('relay2Button');
+      if (relay2Button) {
+        relay2Button.innerText = relay2Status ? 'Turn Light ON' : 'Turn Light OFF';
+      }
     });
 
-    // Toggle logic on button click
-    relay2Button.addEventListener('click', () => {
-      relay2Ref.once('value').then((snapshot) => {
-        const currentStatus = snapshot.val();
-        relay2Ref.set(!currentStatus);
+    function toggleRelay2() {
+      const ref = firebase.database().ref('/relay2Status');
+      ref.once('value').then(snapshot => {
+        const current = snapshot.val() || false;
+        ref.set(!current);
       });
-    });
+    }
+
+    const relay2Button = document.getElementById('relay2Button');
+    if (relay2Button) {
+      relay2Button.addEventListener('click', toggleRelay2);
+    }
   </script>
-
-  <!-- Bootstrap Bundle JS (optional) -->
+  
+  <!-- Bootstrap Bundle JS (includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
