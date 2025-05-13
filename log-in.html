@@ -3,76 +3,79 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - ESP32 Control</title>
+  <title>Login - Smart Home Control</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       background: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914') center/cover no-repeat;
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
-      position: relative; /* Allow for the pseudo-element overlay */
-      overflow: hidden; /* Prevent scrollbars */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
     }
 
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      width: 100%; /* Ensure header spans the full width */
-      position: absolute;
-      top: 0; /* Ensure header stays at the top */
-      left: 0;
-    }
-
-    /* Pseudo-element for overlay */
     body::before {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+
+    header, footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 15px;
       width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.3); /* Adjust opacity here */
-      z-index: -1; /* Make sure the overlay is behind the content */
     }
 
     .login-box {
-      background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent for effect */
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      width: 300px;
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 350px;
+      margin-top: 80px;
     }
 
     .login-box h2 {
       margin-bottom: 20px;
-      text-align: center;
       font-size: 1.5em;
+      text-align: center;
     }
 
     input {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-size: 1em;
     }
 
     button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       background-color: #00aaff;
       color: white;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      border-radius: 8px;
       font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0077cc;
     }
 
     .error {
@@ -81,15 +84,15 @@
       margin-bottom: 10px;
     }
 
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      width: 100%;
-      position: fixed;
-      bottom: 0;
-      left: 0;
+    @media (max-width: 480px) {
+      .login-box {
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      .login-box h2 {
+        font-size: 1.2em;
+      }
     }
   </style>
 </head>
@@ -111,24 +114,33 @@
     <p>© 2025 Smart Home System | Powered by ESP32 & Firebase</p>
   </footer>
 
+  <!-- Firebase JS SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
   <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCc0mDOMrUgh77HMvV8YCDd39hutywEPxI",
+      authDomain: "gerald-bulb.firebaseapp.com",
+      projectId: "gerald-bulb",
+      databaseURL: "https://gerald-bulb-default-rtdb.firebaseio.com",
+      appId: "1:1040165190171:web:7eb0559396add5450416be"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
     function login() {
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
 
-      const validEmail = "Admin";
-      const validPassword = "Password";
-
-      if (email === validEmail && password === validPassword) {
-        // Redirect to main control page (you can change the file name)
-        window.location.href = "smart-home.html";
-      } else {
-        document.getElementById('error').textContent = "Invalid email or password.";
-      }
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(() => {
+          window.location.href = "smart-home.html"; // Redirect on success
+        })
+        .catch((error) => {
+          document.getElementById('error').textContent = "Login failed: " + error.message;
+        });
     }
   </script>
-
-  <!-- Bootstrap Bundle JS (includes Popper) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
