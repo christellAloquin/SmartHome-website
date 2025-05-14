@@ -16,6 +16,7 @@
     html, body {
       height: 100%;
       margin: 0;
+      padding-bottom: 60px; /* To prevent footer overlap */
       font-family: 'Segoe UI', sans-serif;
       color: #333;
       background: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914') no-repeat center center fixed;
@@ -26,10 +27,12 @@
       background-color: rgba(44, 62, 80, 0.9);
       color: white;
       padding: 1rem;
+      flex-wrap: wrap;
     }
 
     nav {
       display: flex;
+      flex-wrap: wrap;
       gap: 1rem;
     }
 
@@ -37,26 +40,26 @@
       color: white;
       text-decoration: none;
     }
-    
+
     .hero {
       color: white;
       text-align: center;
       padding: 6vh 1.25rem;
-      height: 35vh;
+    }
+
+    .hero h1, .hero p {
+      -webkit-text-stroke: 0.5px white;
+      color: #2E5A88;
     }
 
     .hero h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.625rem;
-      -webkit-text-stroke: 0.5px white; /* Outline thickness and color */
-      color: #2E5A88;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
     }
 
     .hero p {
-      font-size: 1.2em;
+      font-size: 1.1rem;
       margin-bottom: 1.25rem;
-      -webkit-text-stroke: 0.5px white; /* Outline thickness and color */
-      color: #2E5A88;
     }
 
     .hero a button {
@@ -71,9 +74,8 @@
     }
 
     .section {
-      padding: 2.5rem 1.25rem;
+      padding: 2rem 1rem;
       text-align: center;
-      flex-grow: 1;
       background-color: rgba(255, 255, 255, 0.85);
       margin: 1rem;
       border-radius: 0.75rem;
@@ -83,16 +85,17 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 1.875rem;
+      gap: 1.5rem;
     }
 
     .feature {
       background-color: white;
-      padding: 1.25rem;
+      padding: 1rem;
       border-radius: 0.625rem;
-      width: 90%;
-      max-width: 250px;
-      box-shadow: 0 0.125rem 0.3125rem rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 300px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      flex: 1 1 calc(100% - 2rem);
     }
 
     footer {
@@ -106,21 +109,17 @@
       left: 0;
     }
 
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
+    @media (min-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
       }
 
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
+      .hero p {
+        font-size: 1.2rem;
       }
 
-      .hero {
-        padding: 4vh 1rem;
-        height: 25vh;
+      .feature {
+        flex: 1 1 30%;
       }
     }
   </style>
@@ -131,8 +130,8 @@
   <header class="container-fluid d-flex justify-content-between align-items-center px-4 py-3">
     <h2 class="m-0">Smart Home Project</h2>
     <nav class="d-flex gap-3">
-      <a href="#" class="text-white text-decoration-none">How It Works</a>
-      <a href="#" class="text-white text-decoration-none">About</a>
+      <a href="#">How It Works</a>
+      <a href="#">About</a>
     </nav>
   </header>
 
