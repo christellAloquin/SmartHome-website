@@ -22,11 +22,11 @@
     header {
       background-color: #222;
       color: white;
-      padding: 1.25rem;
+      padding: 1.25rem; /* ✅ Replaced px with rem */
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
+      flex-wrap: wrap; /* ✅ Allows wrapping in mobile view */
     }
     nav {
       display: flex;
@@ -42,7 +42,7 @@
       background: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914') center/cover no-repeat;
       color: white;
       text-align: center;
-      padding: 6rem 1.25rem;
+      padding: 6rem 1.25rem; /* ✅ Responsive padding */
     }
     .hero h1 {
       font-size: 2.5em;
@@ -57,7 +57,7 @@
     .hero a button {
       background-color: #00aaff;
       border: none;
-      padding: 0.75rem 1.5rem;
+      padding: 0.75rem 1.5rem; /* ✅ Better for mobile tap targets */
       color: white;
       font-size: 1rem;
       cursor: pointer;
@@ -90,6 +90,7 @@
       margin-top: 2.5rem;
     }
 
+    /* ✅ Media Query for phones */
     @media (max-width: 768px) {
       header {
         flex-direction: column;
@@ -112,7 +113,7 @@
     <h2>ESP32 Multi-Relay Control</h2>
     <nav>
       <a href="#">Home</a>
-      <!-- "Features" link removed -->
+      <a href="#">Features</a>
       <a href="#">How It Works</a>
       <a href="#">About</a>
       <a href="#">Contact</a>
@@ -176,7 +177,7 @@
         const status = data[device.name] || false;
         const button = document.getElementById(device.buttonId);
         if (button) {
-          button.innerText = status ? `Turn ${device.label} OFF` : `Turn ${device.label} ON`;
+          button.innerText = status ? Turn ${device.label} OFF : Turn ${device.label} ON;
         }
       });
     });
@@ -201,3 +202,5 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
