@@ -9,7 +9,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-  <!-- ✅ Bootstrap CSS for responsive utilities -->
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
@@ -22,27 +22,18 @@
     header {
       background-color: #222;
       color: white;
-      padding: 1.25rem; /* ✅ Replaced px with rem */
+      padding: 1.25rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap; /* ✅ Allows wrapping in mobile view */
-    }
-    nav {
-      display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
     }
 
     .hero {
       background: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914') center/cover no-repeat;
       color: white;
       text-align: center;
-      padding: 6rem 1.25rem; /* ✅ Responsive padding */
+      padding: 6rem 1.25rem;
     }
     .hero h1 {
       font-size: 2.5em;
@@ -57,7 +48,7 @@
     .hero a button {
       background-color: #00aaff;
       border: none;
-      padding: 0.75rem 1.5rem; /* ✅ Better for mobile tap targets */
+      padding: 0.75rem 1.5rem;
       color: white;
       font-size: 1rem;
       cursor: pointer;
@@ -90,16 +81,10 @@
       margin-top: 2.5rem;
     }
 
-    /* ✅ Media Query for phones */
     @media (max-width: 768px) {
       header {
         flex-direction: column;
         align-items: flex-start;
-      }
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
       }
       .hero {
         padding: 4rem 1rem;
@@ -111,10 +96,7 @@
 
   <header>
     <h2>ESP32 Multi-Relay Control</h2>
-    <nav>
-      <a href="#">How It Works</a>
-      <a href="#">Contact</a>
-    </nav>
+    <!-- Removed nav links -->
   </header>
 
   <section class="hero">
@@ -174,7 +156,7 @@
         const status = data[device.name] || false;
         const button = document.getElementById(device.buttonId);
         if (button) {
-          button.innerText = status ? Turn ${device.label} OFF : Turn ${device.label} ON;
+          button.innerText = status ? `Turn ${device.label} OFF` : `Turn ${device.label} ON`;
         }
       });
     });
@@ -195,9 +177,7 @@
     });
   </script>
 
-  <!-- Bootstrap Bundle JS (includes Popper) -->
+  <!-- Bootstrap Bundle JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
