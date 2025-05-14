@@ -16,7 +16,6 @@
     html, body {
       height: 100%;
       margin: 0;
-      padding-bottom: 60px; /* To prevent footer overlap */
       font-family: 'Segoe UI', sans-serif;
       color: #333;
       background: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914') no-repeat center center fixed;
@@ -29,7 +28,6 @@
       background-color: rgba(44, 62, 80, 0.9);
       color: white;
       padding: 1rem;
-      flex-wrap: wrap;
     }
 
     nav {
@@ -50,7 +48,7 @@
     }
 
     .hero h1, .hero p {
-      -webkit-text-stroke: 0.3px white;
+      -webkit-text-stroke: 0.2px white;
       color: #2E5A88;
     }
 
@@ -106,7 +104,7 @@
       text-align: center;
       padding: 15px;
       width: 100%;
-      /* footer will be placed normally at the end now */
+      margin-top: auto;  /* Ensure footer sticks to the bottom */
     }
 
     @media (min-width: 768px) {
