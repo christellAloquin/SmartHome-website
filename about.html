@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - Smart Home Lighting</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .background-custom {
+      background-image: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    header {
+      background-color: rgba(44, 62, 80, 0.8);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      width: 100%;
+      position: relative;
+      z-index: 10;
+    }
+
+    footer {
+      background-color: rgba(44, 62, 80, 0.8);
+      color: white;
+      text-align: center;
+      padding: 12px;
+      font-size: 0.9em;
+      width: 100%;
+      position: relative;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    @media (max-width: 640px) {
+      header {
+        font-size: 1.3rem;
+        padding: 10px;
+      }
+
+      footer {
+        font-size: 0.8rem;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body class="background-custom text-gray-800 flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header>
+    <h1><b>Smart Home Lighting System</b></h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex items-center justify-center px-4 py-6 sm:py-10 overflow-y-auto">
+    <div class="bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-md w-full max-w-3xl text-xs sm:text-sm md:text-base">
+
+      <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-center mb-4">About Our Smart Home Lighting System</h2>
+
+      <p class="mb-6">
+        The Smart Home Lighting System provides seamless control of your home lights through a simple web interface. Whether you're on your phone or laptop, you can turn your lights on or off with a single click. 
+      </p>
+
+      <p class="mb-6">
+        The system uses <strong>ESP32</strong> microcontroller technology, which connects to your Wi-Fi network and controls the lights. The system's status is synced with the <strong>Firebase Realtime Database</strong>, which allows for instant updates whenever you interact with the website.
+      </p>
+
+      <h3 class="text-lg sm:text-xl font-semibold mb-3">Technology Behind the System</h3>
+      <div class="space-y-3">
+
+        <div class="bg-white rounded-lg shadow p-3">
+          <h4 class="font-semibold">ESP32 Microcontroller</h4>
+          <p>The <strong>ESP32</strong> is a powerful Wi-Fi and Bluetooth microcontroller that connects your home lighting to the internet, enabling remote control through a web-based interface.</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-3">
+          <h4 class="font-semibold">Firebase Realtime Database</h4>
+          <p><strong>Firebase</strong> acts as the backbone of our system. It provides a cloud-based, real-time database that stores the status of your lights, allowing instant updates when you press the On/Off buttons from the website.</p>
+        </div>
+
+      </div>
+
+      <div class="mt-4 bg-blue-50 border-l-4 border-blue-400 p-3 rounded-md text-center text-sm">
+        Experience the future of home automation with the simplicity of web-based control and real-time updates.
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Smart Home System | Powered by ESP32 & Firebase</p>
+  </footer>
+
+</body>
+</html>
