@@ -28,6 +28,7 @@
       position: absolute;
       top: 0;
       left: 0;
+      z-index: 10; /* Ensure the header is above other content */
     }
 
     /* Pseudo-element for overlay */
@@ -47,7 +48,9 @@
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      width: 300px;
+      width: 90%; /* Make the login box take up most of the screen width */
+      max-width: 350px; /* Limit the maximum width */
+      z-index: 1; /* Ensure it's above the overlay */
     }
 
     .login-box h2 {
@@ -91,6 +94,31 @@
       bottom: 0;
       left: 0;
     }
+
+    /* Media Query for smaller screens */
+    @media (max-width: 480px) {
+      .login-box {
+        padding: 20px;
+      }
+
+      .login-box h2 {
+        font-size: 1.2em;
+      }
+
+      input {
+        padding: 8px;
+      }
+
+      button {
+        padding: 8px;
+        font-size: 0.9em;
+      }
+
+      footer {
+        font-size: 0.8em;
+      }
+    }
+
   </style>
 </head>
 <body>
